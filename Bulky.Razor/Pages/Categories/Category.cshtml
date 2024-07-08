@@ -1,0 +1,40 @@
+﻿@page
+@model Bulky.Razor.Pages.Categories.CategoryModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-8 pt-3 pb-3">
+            <h2 class="text-primary">Add Category</h2>
+        </div>
+        <form method="post">
+            <input asp-for="@Model.Category.CategoryId" hidden />
+            <div class="border p-2 col-12 col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-2">
+                    <label class="p-0" asp-for=@Model.Category.Name></label>
+                    <input class="form-control form-text" asp-for="@Model.Category.Name" placeholder="Category name" />
+                    <span asp-validation-for="@Model.Category.Name" class="text-danger"></span>
+                </div>
+                <div class="mb-2">
+                    <label class="p-0" asp-for="@Model.Category.DisplayOrder"></label>
+                    <input class="form-control form-text" asp-for="@Model.Category.DisplayOrder" placeholder="Category order" />
+                    <span asp-validation-for="@Model.Category.DisplayOrder" class="text-danger"></span>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-6">
+                        <a class="btn btn-outline-secondary form-control" asp-page="/Categories/Categories">Cancel</a>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary form-control">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+}

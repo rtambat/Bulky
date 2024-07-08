@@ -1,0 +1,51 @@
+﻿@page
+@model Bulky.Razor.Pages.Categories.CategoriesModel
+
+<div class="container">
+    <div class="row py-4">
+        <div class="col-8">
+            <h2 class="text-primary">Category List</h2>
+        </div>
+        <div class="col-4 text-end align-content-center">
+            <a class="btn btn-primary" asp-page="/Categories/Category">
+                <i class="bi bi-plus-lg"></i> Add Category
+            </a>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Category Name
+                </th>
+                <th>
+                    Display Order
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model.CategoryList)
+            {
+                <tr>
+                    <td>
+                        @category.Name
+                    </td>
+                    <td>
+                        @category.DisplayOrder
+                    </td>
+                    <td>
+                        <div class="align-content-end">
+                            <a asp-page="/Categories/Category" asp-route-categoryId="@category.CategoryId" class="btn btn-outline-primary">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                            <a asp-page="/Categories/Category" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
