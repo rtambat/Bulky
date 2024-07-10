@@ -34,7 +34,7 @@ namespace Bulky.WebClient.Controllers
         [HttpPost]
         public IActionResult Category(Category category)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -53,7 +53,7 @@ namespace Bulky.WebClient.Controllers
                     TempData["success"] = $"Category {message} successfully";
                     return RedirectToAction("Categories");
                 }
-                catch(DbUpdateException ex)
+                catch (DbUpdateException ex)
                 {
                     var sqlException = ex.GetBaseException() as SqlException;
                     if (sqlException?.Number == 2601)
@@ -63,6 +63,22 @@ namespace Bulky.WebClient.Controllers
                 }
             }
             return View();
+        }
+
+        public IActionResult Delete(int categoryID)
+        {
+            Category category = _db.Categories.FirstOrDefault(x => x.CategoryId == categoryID);
+            if (category != null)
+            {
+                _db.Categories.Remove(category);
+                _db.SaveChanges();
+                TempData["success"] = $"Category removed successfully";
+            }
+            else
+            {
+                TempData["error"] = $"Category not found";
+            }
+            return RedirectToAction("Categories");
         }
     }
 }
