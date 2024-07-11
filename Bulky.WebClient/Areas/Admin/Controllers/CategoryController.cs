@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bulky.WebClient.Controllers
+namespace Bulky.WebClient.Areas.Admin.Controllers
 {
     public class CategoryController : Controller
     {
