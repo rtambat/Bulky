@@ -1,5 +1,5 @@
-﻿using Bulky.WebClient.Data;
-using Bulky.WebClient.Models;
+﻿using Bulky.WebClient.Models;
+using DataAccess.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -8,16 +8,16 @@ namespace Bulky.WebClient.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly ICategoryRepository _repository;
 
-        public CategoryController(ApplicationDbContext db)
+        public CategoryController(ICategoryRepository repository)
         {
-            _db = db;
+            _repository = repository;
         }
 
         public IActionResult Categories()
         {
-            List<Category> categories = _db.Categories.ToList();
+            List<Category> categories = _repository.GetAll().ToList();
             return View(categories);
         }
 
@@ -26,7 +26,7 @@ namespace Bulky.WebClient.Controllers
             Category? category = null;
             if (categoryId > 0)
             {
-                category = _db.Categories.First(c => c.CategoryId == categoryId);
+                category = _repository.Get(c => c.CategoryId == categoryId);
             }
             return View(category);
         }
@@ -41,15 +41,15 @@ namespace Bulky.WebClient.Controllers
                     string message = string.Empty;
                     if (category.CategoryId > 0)
                     {
-                        _db.Categories.Update(category);
+                        _repository.Update(category);
                         message = "updated";
                     }
                     else
                     {
-                        _db.Categories.Add(category);
+                        _repository.Add(category);
                         message = "added";
                     }
-                    _db.SaveChanges();
+                    _repository.Save();
                     TempData["success"] = $"Category {message} successfully";
                     return RedirectToAction("Categories");
                 }
@@ -67,11 +67,11 @@ namespace Bulky.WebClient.Controllers
 
         public IActionResult Delete(int categoryID)
         {
-            Category category = _db.Categories.FirstOrDefault(x => x.CategoryId == categoryID);
+            Category category = _repository.Get(x => x.CategoryId == categoryID);
             if (category != null)
             {
-                _db.Categories.Remove(category);
-                _db.SaveChanges();
+                _repository.Remove(category);
+                _repository.Save();
                 TempData["success"] = $"Category removed successfully";
             }
             else
