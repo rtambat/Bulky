@@ -1,13 +1,14 @@
 ﻿using Bulky.WebClient.Data;
+using DataAccess.Repositories.Interfaces;
 using Models.Model;
 
 namespace DataAccess.Repositories
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public CategoryRepository(ApplicationDbContext db) : base(db) 
+        public ProductRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
@@ -17,9 +18,9 @@ namespace DataAccess.Repositories
             _db.SaveChanges();
         }
 
-        public void Update(Category category)
+        public void Update(Product product)
         {
-            _db.Categories.Update(category);
+            _db.Products.Update(product);
         }
     }
 }

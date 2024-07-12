@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Bulky.WebClient.Models
+namespace Models.Model
 {
     [Index(nameof(Name), IsUnique = true)]
     public class Category

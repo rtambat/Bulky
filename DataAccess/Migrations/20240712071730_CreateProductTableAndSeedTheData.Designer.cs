@@ -3,6 +3,7 @@ using Bulky.WebClient.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bulky.WebClient.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240712071730_CreateProductTableAndSeedTheData")]
+    partial class CreateProductTableAndSeedTheData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,16 +80,13 @@ namespace Bulky.WebClient.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
@@ -102,14 +102,9 @@ namespace Bulky.WebClient.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("Title", "Description", "ISBN")
-                        .IsUnique();
 
                     b.ToTable("Products");
 
@@ -118,7 +113,6 @@ namespace Bulky.WebClient.Migrations
                         {
                             ProductId = 1L,
                             Auther = "Sudha Murty",
-                            CategoryId = 1,
                             Description = "Here, There and Everywhere is a celebration of Sudha Murty's literary journey and is her 200th title across genres and languages. Bringing together her best-loved stories from various collections alongside some new ones and a thoughtful introduction, here is a book that is, in every sense, as multifaceted as its author.",
                             ISBN = "1234567890123",
                             ListPrice = 200.0,
@@ -131,7 +125,6 @@ namespace Bulky.WebClient.Migrations
                         {
                             ProductId = 2L,
                             Auther = "The Dalai Lama",
-                            CategoryId = 1,
                             Description = "In this unique and important book, one of the world's great spiritual leaders offers his practical wisdom and advice on how we can overcome everyday human problems and achieve lasting happiness.",
                             ISBN = "1234567890123",
                             ListPrice = 350.0,
@@ -144,7 +137,6 @@ namespace Bulky.WebClient.Migrations
                         {
                             ProductId = 3L,
                             Auther = "Peter Casey",
-                            CategoryId = 1,
                             Description = "The first and only authorized biography on Tata Group including the Tata-Mistry legal battle, exclusive interviews with Ratan Tata, and never-before-seen photographs of the Tata family.",
                             ISBN = "1234567890123",
                             ListPrice = 500.0,
@@ -153,17 +145,6 @@ namespace Bulky.WebClient.Migrations
                             Price50 = 440.0,
                             Title = "The Story of Tata: 1868 to 2021"
                         });
-                });
-
-            modelBuilder.Entity("Models.Model.Product", b =>
-                {
-                    b.HasOne("Models.Model.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

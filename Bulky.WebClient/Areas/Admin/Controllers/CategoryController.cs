@@ -1,8 +1,8 @@
-﻿using Bulky.WebClient.Models;
-using DataAccess.Repositories;
+﻿using DataAccess.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Models.Model;
 
 namespace Bulky.WebClient.Areas.Admin.Controllers
 {

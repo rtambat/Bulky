@@ -1,4 +1,4 @@
-﻿using Bulky.WebClient.Models;
+﻿using Models.Model;
 
 namespace DataAccess.Repositories
 {
