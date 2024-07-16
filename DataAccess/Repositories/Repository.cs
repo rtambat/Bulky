@@ -6,12 +6,10 @@ namespace DataAccess.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly ApplicationDbContext _db;
-        private DbSet<T> _dbSet;
+        private readonly DbSet<T> _dbSet;
 
         public Repository(ApplicationDbContext db)
         {
-            _db = db;
             _dbSet = db.Set<T>();
         }
 
@@ -20,15 +18,30 @@ namespace DataAccess.Repositories
             _dbSet.Add(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> filter)
+        public T Get(Expression<Func<T, bool>> filter,params string[]? includeTables)
         {
             IQueryable<T> query = _dbSet.Where(filter);
+            if (includeTables?.Length > 0)
+            {
+                foreach (string table in includeTables)
+                {
+                    query = query.Include(table);
+                }
+            }
             return query.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(params string[]? includeTables)
         {
-            return _dbSet.ToList();
+            IQueryable<T> query = _dbSet;
+            if (includeTables?.Length > 0)
+            {
+                foreach (string table in includeTables)
+                {
+                    query = query.Include(table);
+                }
+            }
+            return query.ToList();
         }
 
         public void Remove(T entity)

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,6 +8,7 @@ namespace Models.Model
     [Index(nameof(Title), nameof(Description), nameof(ISBN), IsUnique = true)]
     public class Product
     {
+        [ValidateNever]
         [Key]
         public long ProductId { get; set; }
         [Required]
@@ -32,9 +34,11 @@ namespace Models.Model
         [Range(1, 1000)]
         [Display(Name = "Price for 100+")]
         public double Price100 { get; set; }
-        public string ImagePath { get; set; } 
+        [ValidateNever]
+        public string ImagePath { get; set; } = string.Empty;
 
         public int CategoryId { get; set; }
+        [ValidateNever]
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
     }

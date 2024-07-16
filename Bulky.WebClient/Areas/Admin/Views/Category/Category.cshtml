@@ -1,42 +1,44 @@
 ﻿@model Category;
 
-<div class="card shadow border-0 mt-4 col-md-8">
-    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="text-white py-2">Create Category</h2>
+<div class="d-flex justify-content-center">
+    <div class="card shadow border-0 mt-4 col-md-8">
+        <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="text-white py-2">Create Category</h2>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="card-body p-4">
-        <form method="post" class="row">
-            <div class="border p-3">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-floating py-2 col-12">
-                    <input class="form-control border-0 shadow" asp-for="Name" placeholder="Category name" />
-                    <label class="ms-2" asp-for="Name"></label>
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input class="form-control border-0 shadow" asp-for="DisplayOrder" placeholder="Category order" />
-                    <label class="ms-2" asp-for="DisplayOrder"></label>
-                    <span asp-validation-for="DisplayOrder" class="text-danger"></span>
-                </div>
-                <div class="row pt-4">
-                    <div class="col-6 col-md-3">
-                        <a class="btn btn-outline-primary border form-control" asp-controller="Category" asp-action="Categories">Cancel</a>
+        <div class="card-body p-4">
+            <form method="post" class="row">
+                <div class="border p-3">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-floating py-2 col-12">
+                        <input class="form-control border-0 shadow" asp-for="Name" placeholder="Category name" />
+                        <label class="ms-2" asp-for="Name"></label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <button class="btn btn-primary form-control">Save</button>
+                    <div class="form-floating py-2 col-12">
+                        <input class="form-control border-0 shadow" asp-for="DisplayOrder" placeholder="Category order" />
+                        <label class="ms-2" asp-for="DisplayOrder"></label>
+                        <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col-6 col-md-3">
+                            <a class="btn btn-outline-primary border form-control" asp-controller="Category" asp-action="Categories">Cancel</a>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button class="btn btn-primary form-control">Save</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 
-@section Scripts{
+@section Scripts {
     @{
-    <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
     }
 }

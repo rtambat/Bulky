@@ -1,5 +1,5 @@
-using Bulky.WebClient.Models;
 using Microsoft.AspNetCore.Mvc;
+using Models.Model;
 using System.Diagnostics;
 
 namespace Bulky.WebClient.Areas.Customer.Controllers

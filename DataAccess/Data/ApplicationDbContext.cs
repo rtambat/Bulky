@@ -32,7 +32,8 @@ namespace Bulky.WebClient.Data
                     Price = 174,
                     Price50 = 160,
                     Price100 = 170,
-                    CategoryId = 1
+                    CategoryId = 1,
+                    ImagePath = ""
                 },
                 new Product
                 {
@@ -45,7 +46,8 @@ namespace Bulky.WebClient.Data
                     Price = 320,
                     Price50 = 310,
                     Price100 = 300,
-                    CategoryId = 1
+                    CategoryId = 1,
+                    ImagePath = ""
                 },
                 new Product
                 {
@@ -58,7 +60,8 @@ namespace Bulky.WebClient.Data
                     Price = 450,
                     Price50 = 440,
                     Price100 = 430,
-                    CategoryId = 1
+                    CategoryId = 1,
+                    ImagePath = ""
                 });
         }
     }
