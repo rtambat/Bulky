@@ -102,20 +102,34 @@ namespace Bulky.WebClient.Areas.Admin.Controllers
             return View(productModel);
         }
 
+        #region Api's
+
+
+        [HttpGet]
+        public IActionResult GetProducts()
+        {
+            List<Product> products = _productRepository.GetAll(nameof(Models.Model.Product.Category)).ToList();
+            return Json(new { data = products });
+        }
+
+        [HttpDelete]
         public IActionResult Delete(int ProductID)
         {
-            Product Product = _productRepository.Get(x => x.ProductId == ProductID);
-            if (Product != null)
+            Product product = _productRepository.Get(x => x.ProductId == ProductID);
+            if (product != null)
             {
-                _productRepository.Remove(Product);
+                if (!string.IsNullOrWhiteSpace(product.ImagePath) &&
+                            System.IO.File.Exists(Path.Combine(_webHostEnvironment.WebRootPath, product.ImagePath.TrimStart('\\'))))
+                {
+                    System.IO.File.Delete(Path.Combine(_webHostEnvironment.WebRootPath, product.ImagePath.TrimStart('\\')));
+                }
+                _productRepository.Remove(product);
                 _productRepository.Save();
-                TempData["success"] = $"Product removed successfully";
+                return Json(new { success = true, message = "Product removed successfully" });
             }
-            else
-            {
-                TempData["error"] = $"Product not found";
-            }
-            return RedirectToAction("Products");
+            return Json(new { success = false, message = "Product not found" });
         }
+
+        #endregion
     }
 }

@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="table-responsive text-nowrap">
-            <table class="table table-bordered table-striped">
+            <table id="tblData" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -28,7 +28,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+               @*  <tbody>
                     @foreach (var product in Model)
                     {
                         var tm = "#myModal" + product.ProductId;
@@ -48,29 +48,33 @@
                                         <i class="bi bi-trash"></i> Delete
                                     </a>
                                 </div>
-                                <div class="modal fade" id="@mid" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="myModal" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header border-0">
-                                                <h4 class="modal-title" id="myModalLabel">Delete Confirmation</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                Are you sure want to delete this item?
-                                            </div>
-                                            <div class="modal-footer border-0">
-                                                <a asp-controller="Product" asp-action="Delete" asp-route-productId="@product.ProductId" id="myModelDltBtn" class="btn btn-danger mr-1">
-                                                    Delete
-                                                </a>
-                                                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </td>
                         </tr>
                     }
-                </tbody>
+                </tbody> *@
             </table>
+            <div class="modal fade" id="confirmModel" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="myModal" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header border-0">
+                            <h4 class="modal-title" id="myModalLabel">Delete Confirmation</h4>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure want to delete this item?
+                        </div>
+                        <div class="modal-footer border-0">
+                            <a id="modelDltBtn" class="btn btn-danger mr-1" data-path="">
+                                Delete
+                            </a>
+                            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/js/product.js"></script>
+}
